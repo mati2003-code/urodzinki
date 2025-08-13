@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Urodzinowa Niespodzianka</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #ff99cc, #ffccff);
+        text-align: center;
+        color: #fff;
+        overflow-x: hidden;
+    }
+    .section {
+        display: none;
+        padding: 40px;
+        opacity: 0;
+        transition: opacity 0.8s ease-in-out;
+    }
+    .active {
+        display: block;
+        opacity: 1;
+    }
+    button {
+        padding: 12px 25px;
+        background: #ff66a3;
+        border: none;
+        border-radius: 25px;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+    button:hover {
+        background: #ff3385;
+    }
+    .question {
+        margin: 20px 0;
+    }
+    input {
+        padding: 8px;
+        border-radius: 10px;
+        border: none;
+        font-size: 16px;
+    }
+    img {
+        max-width: 60%;
+        border-radius: 15px;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+
+<!-- Start -->
+<div id="start" class="section active">
+    <h1>🎉 Wszystkiego najlepszego misiaczku! 🎉</h1>
+    <button onclick="nextScreen('quiz1')">Zaczynamy!</button>
+</div>
+
+<!-- Quiz 1 -->
+<div id="quiz1" class="section">
+    <h2>Quiz 1 – Odkryj pierwszy prezent (zobaczymy czy umiesz datki) 🎁</h2>
+    <div class="question"><p>1. Kiedy mam urodziny? (dd.mm)</p><input id="q1-1"></div>
+    <div class="question"><p>2. Kiedy się poznaliśmy? (dd.mm)</p><input id="q1-2"></div>
+    <div class="question"><p>3. W którym roku rozpoczęła się 2 wojna światowa? (masz 10 sekund)</p><input id="q1-3"></div>
+    <button onclick="checkQuiz('q1', ['04.05','15.11','1939'], 'gift1')">Sprawdź</button>
+</div>
+
+<!-- Prezent 1 -->
+<div id="gift1" class="section">
+    <h2>🎁 Pierwszy prezent: Nauka jazdy konnej dla dwojga (chyba) 🐎</h2>
+    <p>Pojezdzimy sobie na konikach ale niestety nie dzisiaj :(</p>
+    <button onclick="nextScreen('quiz2')">Dalej</button>
+</div>
+
+<!-- Quiz 2 -->
+<div id="quiz2" class="section">
+    <h2>Quiz 2 – Odkryj drugi prezent 🎁</h2>
+    <div class="question"><p>1. Jak nazywa się nasza ulubiona miejscówa do jedzonka w Krakowie? (Nie oczywiste)</p><input id="q2-1"></div>
+    <div class="question"><p>2. Jaką kryptowalutę lubię najbardziej? </p><input id="q2-2"></div>
+    <div class="question"><p>3. Jaka jest największa kryptowaluta na świecie?</p><input id="q2-3"></div>
+    <button onclick="checkQuiz('q2', ['Warsztat','Ethereum','Bitcoin'], 'gift2')">Sprawdź</button>
+</div>
+
+<!-- Prezent 2 -->
+<div id="gift2" class="section">
+    <h2>🎁 Drugi prezent: Jedziemy do Zoo popatrzyć na zwierzątka! Cieszysz się? 🐒</h2>
+    <p>Myślę ze spoko pomysł hihi</p>
+    <button onclick="nextScreen('quiz3')">Dalej</button>
+</div>
+
+<!-- Quiz 3 -->
+<div id="quiz3" class="section">
+    <h2>Quiz 3 – Odkryj trzeci prezent 🎁</h2>
+    <div class="question"><p>1. Gdzie kupowałem bilety u Oskara dla nas zeby się popisać?(Na ...)</p><input id="q3-1"></div>
+    <div class="question"><p>2. Gdzie spotkalismy sie po raz pierwszy? (Nazwa)</p><input id="q3-2"></div>
+    <div class="question"><p>3. Jak powiedziałaś mi wtedy, ze masz na imię?</p><input id="q3-3"></div>
+    <button onclick="checkQuiz('q3', ['bahamy','klub studio','karolina'], 'gift3')">Sprawdź</button>
+</div>
+
+<!-- Prezent 3 -->
+<div id="gift3" class="section">
+    <h2>🎁 Trzeci prezent: Nauka jazdy konnej dla dwojga (chyba) 🐎</h2>
+    <p>Pojezdzimy sobie na konikach ale niestety nie dzisiaj :(</p>
+    <button onclick="nextScreen('final')">Zobacz finał</button>
+</div>
+
+<!-- Finał -->
+<div id="final" class="section">
+    <h1>💖 Kamisiu 💖</h1>
+    <p>Kochanie, życzę Ci, żebyś zawsze miała powód do uśmiechu – nawet wtedy, kiedy ja gadam głupoty i czasem doprowadzam Cię do szału. Życzę Ci, żeby każdy dzień był lepszy od poprzedniego, a my żebyśmy zawsze potrafili śmiać się ze swoich zalosnych zartów. Wiem, że jesteś najlepszą osobą, jaka mogła mi się trafić. No i obiecuję, że będę się starał być mniej wkurzający hihi. chociaż nic nie obiecuję w 100%, bo wtedy byłoby nudno. ❤️😏
+🥰</p>
+    <img src="/images/IMG_5990.PNG" alt="My">
+    <img src="/images/IMG_5996.PNG" alt="My 2">
+</div>
+
+<!-- Biblioteka konfetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+<script>
+function nextScreen(screenId) {
+    document.querySelectorAll('.section').forEach(sec => {
+        sec.classList.remove('active');
+        sec.style.opacity = 0;
+    });
+    const newSec = document.getElementById(screenId);
+    newSec.classList.add('active');
+    setTimeout(() => newSec.style.opacity = 1, 50);
+
+    // Konfetti dla prezentów
+    if (screenId.startsWith("gift")) {
+        launchConfetti();
+    }
+}
+
+function checkQuiz(prefix, correctAnswers, nextScreenId) {
+    let allCorrect = true;
+    for (let i = 0; i < 3; i++) {
+        let answer = document.getElementById(`${prefix}-${i+1}`).value.trim().toLowerCase();
+        if (answer !== correctAnswers[i].toLowerCase()) {
+            allCorrect = false;
+        }
+    }
+    if (allCorrect) {
+        nextScreen(nextScreenId);
+    } else {
+        alert("Spróbuj ponownie 😊");
+    }
+}
+
+function launchConfetti() {
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+    });
+}
+</script>
+
+</body>
+</html>
+
